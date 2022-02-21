@@ -70,13 +70,13 @@
 </head>
 <body>
 	<div class="wrap">
-		<h1>404 - File Not Found</h1>
+		<h1>404 - Página não encontrada</h1>
 
 		<p>
 			<?php if (! empty($message) && $message !== '(null)') : ?>
 				<?= nl2br(esc($message)) ?>
 			<?php else : ?>
-				Sorry! Cannot seem to find the page you were looking for.
+				Desculpe! Não conseguimos exibir a página que você estava procurando.
 			<?php endif ?>
 		</p>
 	</div>
