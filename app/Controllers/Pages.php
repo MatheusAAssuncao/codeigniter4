@@ -9,18 +9,17 @@ class Pages extends BaseController
         return view('welcome_message');
     }
 
-    public function view($page = 'Home')
+    public function view($page = 'home')
 	{
-		$page = ucfirst($page);
-		if (! is_file(APPPATH . 'Views/Pages/' . $page . '.php')) {
+		if (! is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
 			// Whoops, we don't have a page for that!
 			throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
 		}
-
-		$data['title'] = $page;
-
-		echo view('Templates/Header', $data);
-		echo view('Pages/' . $page, $data);
-		echo view('Templates/Footer', $data);
+	
+		$data['title'] = ucfirst($page); // Capitalize the first letter
+	
+		echo view('templates/header', $data);
+		echo view('pages/' . $page, $data);
+		echo view('templates/footer', $data);
 	}
 }

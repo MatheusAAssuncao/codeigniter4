@@ -1,0 +1,1 @@
+Notícia criada com sucesso.
