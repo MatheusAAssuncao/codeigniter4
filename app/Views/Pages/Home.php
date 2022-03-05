@@ -1,3 +1,0 @@
-<?php
-
-esc('Página Home');
