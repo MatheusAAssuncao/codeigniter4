@@ -1,0 +1,3 @@
+<?php
+
+esc('Página About');
