@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\NewsModel;
+use MongoDB;
+use MongoDB\Client;
 
 class News extends BaseController
 {
@@ -31,10 +33,23 @@ class News extends BaseController
         }
 
         $data['title'] = $data['news']['title'];
+        $timer = \Config\Services::timer();
+        $data['timer'] = $timer;
+        
+        $data['mongo'] = $this->_insertMongoData();
 
         echo view('templates/header', $data);
         echo view('news/view', $data);
         echo view('templates/footer', $data);
+    }
+
+    protected function _insertMongoData() {
+        $client = new Client("mongodb://admin:123@localhost:27017");
+        $collection = $client->salesgroup->beers;
+
+        $result = $collection->insertOne( [ 'name' => 'Matheus', 'option_1' => 'test' ] );
+
+        return "Inserted with Object ID '{$result->getInsertedId()}'";
     }
 
     public function create()

@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '8668e7b60c3bad4b81a80d7d7ad40422f4024a60',
         'name' => 'codeigniter4/codeigniter4',
         'dev' => true,
     ),
@@ -20,12 +20,12 @@
             'dev_requirement' => true,
         ),
         'codeigniter4/codeigniter4' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '8668e7b60c3bad4b81a80d7d7ad40422f4024a60',
             'dev_requirement' => false,
         ),
         'composer/pcre' => array(
@@ -100,6 +100,15 @@
             'reference' => '1975e4453eb2726d1f50da0ce7fa91295029a4fa',
             'dev_requirement' => true,
         ),
+        'jean85/pretty-package-versions' => array(
+            'pretty_version' => '2.0.5',
+            'version' => '2.0.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jean85/pretty-package-versions',
+            'aliases' => array(),
+            'reference' => 'ae547e455a3d8babd07b96966b17d7fd21d9c6af',
+            'dev_requirement' => true,
+        ),
         'kint-php/kint' => array(
             'pretty_version' => '4.1.1',
             'version' => '4.1.1.0',
@@ -125,6 +134,15 @@
             'install_path' => __DIR__ . '/../mikey179/vfsstream',
             'aliases' => array(),
             'reference' => '250c0825537d501e327df879fb3d4cd751933b85',
+            'dev_requirement' => true,
+        ),
+        'mongodb/mongodb' => array(
+            'pretty_version' => '1.11.0',
+            'version' => '1.11.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mongodb/mongodb',
+            'aliases' => array(),
+            'reference' => 'e4aa59ab15b6fe00a0e56b6772f8b515a0f01bf0',
             'dev_requirement' => true,
         ),
         'myclabs/deep-copy' => array(
