@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\NewsModel;
-use MongoDB;
-use MongoDB\Client;
+use App\Libraries\Mongo\MongoConnection;
+use MongoDB\BSON\Regex;
 
 class News extends BaseController
 {
@@ -44,12 +44,50 @@ class News extends BaseController
     }
 
     protected function _insertMongoData() {
-        $client = new Client("mongodb://admin:123@localhost:27017");
-        $collection = $client->salesgroup->beers;
+        // $_mongoAdmin = new MongoConnection('admin');
+        // $_mongoAdmin->setCollection('datakeys')->drop();
+        $_mongo = new MongoConnection();
+        // $_mongo->setCollection('users')->drop();
+        $_mongo->setCollection('users');
 
-        $result = $collection->insertOne( [ 'name' => 'Matheus', 'option_1' => 'test' ] );
+        $_mongo->collection->insertOne([
+            'name' => 'Matheus',
+            'enc_code_number' => 123, 
+            'endereco' => 'Rua Santa Lúcia, 249', 
+            'enc_documento' => '123456789'
+        ]);
 
-        return "Inserted with Object ID '{$result->getInsertedId()}'";
+        $_mongo->collection->insertMany([
+            [
+                'name' => 'Julia',
+                'enc_code_number' => 321,
+                'endereco' => 'Rua Dolores Duran, 170',
+                'enc_documento' => '987654321'
+            ],
+            [
+                'name' => 'João',
+                'enc_code_number' => '951',
+                'endereco' => 'Rua Carlos Gomes, nº 300',
+                'enc_documento' => '852147963'
+            ],
+            [
+                'name' => 'João',
+                'enc_code_number' => '9511',
+                'endereco' => 'Rua Carlos Gomes, nº 3000',
+                'enc_documento' => '123456'
+            ],
+        ]);
+
+        // $_mongo->setCollection('users')->updateMany(
+        //     ['name' => 'João'],
+        //     ['$set' => ['enc_documento' => '9999999999999']]
+        // );
+
+        return json_encode($_mongo->collection->find(
+            ['name' => new Regex('^jul', 'i')], ['projection' => ['_id' => 0]]
+            // ['enc_documento' => '123456789'], ['projection' => ['_id' => 0]]
+        ), JSON_PRETTY_PRINT);
+        // return json_encode(['ok' => 'ok'], JSON_PRETTY_PRINT);
     }
 
     public function create()

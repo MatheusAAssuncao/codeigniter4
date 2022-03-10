@@ -1177,3 +1177,19 @@ if (! function_exists('trait_uses_recursive')) {
         return $traits;
     }
 }
+
+if (! function_exists('_debug')) {
+    function _debug($var, $exit = 0) {
+        if (is_array($var)) {
+            echo "<pre>";
+            echo json_encode($var);
+            echo "</pre>";
+        } else {
+            var_dump($var);
+        }
+
+        if ($exit) {
+            exit;
+        }
+    }
+}

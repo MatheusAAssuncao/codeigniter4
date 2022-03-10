@@ -126,7 +126,6 @@ class Client
         $this->typeMap = $driverOptions['typeMap'] ?? null;
 
         unset($driverOptions['typeMap']);
-
         $this->manager = new Manager($uri, $uriOptions, $driverOptions);
         $this->readConcern = $this->manager->getReadConcern();
         $this->readPreference = $this->manager->getReadPreference();
