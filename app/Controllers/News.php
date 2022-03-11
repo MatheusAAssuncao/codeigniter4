@@ -50,43 +50,52 @@ class News extends BaseController
         // $_mongo->setCollection('users')->drop();
         $_mongo->setCollection('users');
 
-        $_mongo->collection->insertOne([
-            'name' => 'Matheus',
-            'enc_code_number' => 123, 
-            'endereco' => 'Rua Santa Lúcia, 249', 
-            'enc_documento' => '123456789'
-        ]);
+        // $_mongo->collection->insertOne([
+        //     'name' => 'Matheus',
+        //     'enc_code_number' => 123, 
+        //     'endereco' => 'Rua Santa Lúcia, 249', 
+        //     'enc_documento' => '123456789'
+        // ]);
 
-        $_mongo->collection->insertMany([
-            [
-                'name' => 'Julia',
-                'enc_code_number' => 321,
-                'endereco' => 'Rua Dolores Duran, 170',
-                'enc_documento' => '987654321'
-            ],
-            [
-                'name' => 'João',
-                'enc_code_number' => '951',
-                'endereco' => 'Rua Carlos Gomes, nº 300',
-                'enc_documento' => '852147963'
-            ],
-            [
-                'name' => 'João',
-                'enc_code_number' => '9511',
-                'endereco' => 'Rua Carlos Gomes, nº 3000',
-                'enc_documento' => '123456'
-            ],
-        ]);
+        // $_mongo->collection->insertMany([
+        //     [
+        //         'name' => 'Julia',
+        //         'enc_code_number' => 321,
+        //         'endereco' => [
+        //             'rua' => 'Dolores Duran',
+        //             'enc_cep' => '13473661',
+        //             'estado' => [
+        //                 'enc_sigla' => 'SP',
+        //                 'cidade' => 'Americana'
+        //             ]
+        //         ],
+        //         'enc_documento' => '987654321'
+        //     ],
+        //     [
+        //         'name' => 'João',
+        //         'enc_code_number' => '951',
+        //         'endereco' => 'Rua Pando Tando, nº 300',
+        //         'enc_documento' => '852147963'
+        //     ],
+        //     [
+        //         'name' => 'João',
+        //         'enc_code_number' => '9511',
+        //         'endereco' => 'Rua Pando Tando, nº 3000',
+        //         'enc_documento' => '123456'
+        //     ],
+        // ]);
 
-        // $_mongo->setCollection('users')->updateMany(
-        //     ['name' => 'João'],
-        //     ['$set' => ['enc_documento' => '9999999999999']]
-        // );
+        $_mongo->setCollection('users')->updateMany(
+            ['endereco.rua' => 'Dolores Duran'],
+            ['$set' => ['endereco.enc_cep' => '1234567']]
+        );
 
         return json_encode($_mongo->collection->find(
-            ['name' => new Regex('^jul', 'i')], ['projection' => ['_id' => 0]]
+            // ['name' => new Regex('^jul', 'i')], ['projection' => ['_id' => 0]]
             // ['enc_documento' => '123456789'], ['projection' => ['_id' => 0]]
+            ['endereco.estado.enc_sigla' => 'SP', 'endereco.estado.cidade' => 'Americana'], ['projection' => ['_id' => 0]]
         ), JSON_PRETTY_PRINT);
+        
         // return json_encode(['ok' => 'ok'], JSON_PRETTY_PRINT);
     }
 

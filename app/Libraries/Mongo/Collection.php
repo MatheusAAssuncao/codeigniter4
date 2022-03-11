@@ -61,29 +61,41 @@ class Collection extends \MongoDB\Collection {
     }
 
     protected function _encryptArrayField(&$document) {
-        // self::_iterateAndEncrypt($document);
-        foreach ($document as $key => &$value) {
-            if (!is_array($value) && self::_isFieldEncrypted($key)) { 
-                $value = $this->_clientEncryption->encrypt($value, $this->_encryptionOpts);
+        $this->_iterateMultiArrayAndEncrypt($document);
+    }
+
+    private function _iterateMultiArrayAndEncrypt(&$array) {
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $this->_iterateMultiArrayAndEncrypt($value);
+                continue;
             }
+            
+            // for filters like endereco.enc_cep
+            if (strpos($key, ".") !== false) {
+                $key = substr(strrchr($key, '.'), 1);
+            }
+
+            $value = self::_isFieldEncrypted($key) ? $this->_clientEncryption->encrypt($value, $this->_encryptionOpts) : $value;
         }
     }
 
-    // private static function _iterateAndEncrypt(&$array) {
-
-    // }
-
     protected function _decryptArrayField(&$document) {
-        foreach($document as $key => &$value) {
-            if (self::_isFieldEncrypted($key)) {
-                $value = $this->_clientEncryption->decrypt($value);
-            }
-            if (is_string($value)) {
-                $value = htmlentities($value);
+        return $this->_iterateMultiArrayAndDecrypt($document);
+    }
+
+    private function _iterateMultiArrayAndDecrypt(&$array) {
+        foreach($array as $key => &$value) {
+            $value = self::_isFieldEncrypted($key) ? $this->_clientEncryption->decrypt($value) : $value;
+            $value = is_string($value) ? htmlentities($value) : $value;
+
+            if (is_object($value)) {
+                $value = $this->_iterateMultiArrayAndDecrypt($value);
+                continue;
             }
         }
 
-        return $document;
+        return $array;
     }
 
     protected static function _isFieldEncrypted($field) {

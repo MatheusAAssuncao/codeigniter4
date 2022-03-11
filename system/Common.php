@@ -1185,7 +1185,7 @@ if (! function_exists('_debug')) {
             echo json_encode($var);
             echo "</pre>";
         } else {
-            var_dump($var);
+            print_r($var);
         }
 
         if ($exit) {

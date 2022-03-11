@@ -4,7 +4,6 @@ namespace App\Libraries\Mongo;
 
 use Config\Paths;
 use Exception;
-use MongoDB\BSON\Binary;
 
 class MongoConnection {
     
